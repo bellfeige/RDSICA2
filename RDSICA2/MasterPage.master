@@ -1,0 +1,126 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="headNotice" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="~/Site.css" rel="stylesheet" type="text/css" runat="server" />
+
+    <style type="text/css">
+        ul.nav li.dropdown:hover > ul.dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <link href="~/Site.css" rel="stylesheet" type="text/css" runat="server" />
+    <asp:ScriptManager runat="server" EnablePartialRendering="false" />
+    <form id="form1" runat="server">
+        <!-- 2 -->
+        <div id="topContent">
+
+
+            <div>
+                <asp:ImageButton ID="Logo" OnClick="Home_Click" runat="server" ImageUrl="Sources/Images/logo.png" Height="50px" />
+            </div>
+            <div>
+                <asp:LinkButton ID="LinkButtonAbout" runat="server" OnClick="About_Click">About</asp:LinkButton>
+            </div>
+
+            <div>
+
+                <a>Search</a>
+                <asp:TextBox ID="TxtSearch" placeholder="Search Keyword in Tutorial Title" runat="server" Height="25px" Width="600px"></asp:TextBox>
+                <asp:LinkButton ID="BtnSearch" OnClick="BtnSearch_Click" runat="server">GO</asp:LinkButton>
+
+
+
+            </div>
+            <div>
+                <asp:LinkButton ID="LinkButtonRegister" runat="server" OnClick="Register_Click">Register</asp:LinkButton>
+            </div>
+            <div>
+                <asp:LinkButton ID="LinkButtonLogin" runat="server" OnClick="Login_Click">Login</asp:LinkButton>
+            </div>
+
+            <div>
+                <asp:Label ID="lblUserName" runat="server" Text=""></asp:Label>
+            </div>
+
+
+        </div>
+
+
+
+        <!-- 1 -->
+        <div id="leftContent">
+
+            <h3>Categories</h3>
+            <div class="categories">
+                <asp:DataList ID="Categories" runat="server" DataKeyField="Id" DataSourceID="SqlDataSource1" CellPadding="5" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False">
+                    <ItemTemplate>
+                        <a href="<%= path%><%# String.Format("Tutorials/CategorizedTutorials.aspx?ID={0}", Eval("ID")) %>"><%# Eval("Name") %></a>
+
+                    </ItemTemplate>
+                </asp:DataList>
+            </div>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:constr %>" SelectCommand="SELECT [Name], [Id] FROM [Categories]"></asp:SqlDataSource>
+            <div class="alltuts">
+                <a href="<%= path%>Tutorials/List.aspx">All Tutorials</a>
+            </div>
+
+        </div>
+        <!-- 3 -->
+        <p></p>
+
+        <div id="mainContent">
+            <asp:ContentPlaceHolder ID="main" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <!-- 4 -->
+        <p></p>
+        <div id="rightContent">
+
+            <h3>
+                <asp:Label ID="rightContentTitle" class="rightContent-title" runat="server" Text="My Panel"></asp:Label></h3>
+            <br />
+            <div>
+                <asp:LinkButton ID="CreateTutorial" runat="server" OnClick="CreateTutorial_Click">Add a New Tutorial</asp:LinkButton>
+            </div>
+            <br />
+            <div>
+                <asp:LinkButton ID="MyProfile" runat="server" OnClick="MyProfile_Click">My Profile</asp:LinkButton>
+            </div>
+
+            <br />
+            <div>
+                <asp:LinkButton ID="TutorialsMgr" runat="server" OnClick="TutorialsMgr_Click" Text=""></asp:LinkButton>
+            </div>
+
+            <br />
+             <div>
+                <asp:LinkButton ID="AccountsMgr" runat="server" OnClick="AccountsMgr_Click" Text="Manage All Accounts"></asp:LinkButton>
+            </div>
+
+            <br />
+            <div>
+                <asp:LinkButton ID="Logout" runat="server" OnClick="Logout_Click">Log out</asp:LinkButton>
+            </div>
+
+
+        </div>
+
+        <!-- 5 -->
+        <%--        <div style="position: absolute; left: 500px; top: 500px" id="footerContent">
+            &nbsp;&nbsp;<img alt="Powered ASP.Net" class="auto-style1"
+                src="Content/webpagelayouts.jpg" />
+            <br />
+            &copy;ASP.Net Corp.&nbsp;
+
+        </div>--%>
+    </form>
+</body>
+</html>
